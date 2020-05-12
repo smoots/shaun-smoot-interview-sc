@@ -1,0 +1,4 @@
+---
+
+- import_tasks: selinux.yml
+- import_tasks: semanage.yml

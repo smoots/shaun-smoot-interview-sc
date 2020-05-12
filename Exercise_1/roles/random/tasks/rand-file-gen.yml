@@ -1,0 +1,4 @@
+---
+
+- name: Creating random file in /tmp/random_(number)
+  shell: "touch /tmp/random_$(( $RANDOM % 101 ))"

@@ -1,0 +1,6 @@
+---
+
+- name: Install policycoreutils package for semanage policy managment
+  yum:
+    name: policycoreutils-python
+    state: present

@@ -1,0 +1,40 @@
+#!/bin/bash
+#
+# application  Stop and Start SandC_Devops Service
+#
+# description: Activates/Deactivates all network interfaces configured to \
+#              start at boot time.
+#
+
+# SandC_Devops VARS
+pid_file="/tmp/SandC_devops.pid"
+log_file="/tmp/SandC_devops.log"
+random_interval=10
+
+
+case "$1" in
+start)
+
+    # PID Handling
+
+    # Cleaning PID file on startup
+    [ -e $pid_file ] && rm $pid_file
+
+    #  
+    echo $$ >$pid_file
+
+    #
+    while true
+	do
+		echo $(date +"%T") - "Hire Me" |& tee -a $log_file
+		sleep $[ ( $RANDOM % $random_interval )  + 60 ]s
+	done
+    ;;
+stop)
+    ;;
+*)
+    echo $"Usage: $0 start|stop"
+    exit 2
+esac
+
+exit $rc

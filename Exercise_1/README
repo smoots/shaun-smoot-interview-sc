@@ -1,0 +1,85 @@
+# Exercises 1 
+
+Quick how to for Ansible Exercises 1
+
+## Directory structure
+
+This ansible setup is made to be module and flexible by utilizing roles. 
+The projcet directory structue is setup as follows:
+
+├── README
+├── ansible.cfg
+├── inventory
+├── main.yml
+└── roles
+    ├── nginx
+    │   └── tasks
+    │       ├── main.yml
+    │       └── nginx.yml
+    ├── random
+    │   └── tasks
+    │       ├── main.yml
+    │       └── rand-file-gen.yml
+    ├── security
+    │   └── tasks
+    │       ├── main.yml
+    │       ├── selinux.yml
+    │       └── semanage.yml
+    └── users
+        ├── tasks
+        │   ├── main.yml
+        │   └── users.yml
+        └── vars
+            └── main.yml
+
+## Usage		
+To execute you playbook run the following command:
+
+ansible-playbook main.yml
+
+## Notes
+ansible.cfg - This file has been configure with all the neccessary default to execute the playbook. Things such as your invenroty file. Look here to make any changes to the runtime execution parameters.
+
+
+## Sample Output
+
+If run correctly you should see ansible verbose console logging as shown below.
+
+
+PLAY [all] **********************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **********************************************************************************************************************************************************************************
+The authenticity of host '10.10.10.219 (10.10.10.219)' can't be established.
+ECDSA key fingerprint is SHA256:/0S+FtQ5CSEaRPB7NSB5VObXIPqZHa9m/dB5cXdQK8M.
+ECDSA key fingerprint is MD5:1b:b6:50:7b:d6:b5:a6:08:f7:c0:e7:53:06:9a:0f:aa.
+Are you sure you want to continue connecting (yes/no)? yes
+[WARNING]: Platform linux on host 10.10.10.219 is using the discovered Python interpreter at /usr/bin/python, but future installation of another Python interpreter could change this. See
+https://docs.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for more information.
+ok: [10.10.10.219]
+
+TASK [users : include_vars] *****************************************************************************************************************************************************************************
+ok: [10.10.10.219]
+
+TASK [users : Create user accounts] *********************************************************************************************************************************************************************
+changed: [10.10.10.219] => (item=gooduser)
+changed: [10.10.10.219] => (item=restricteduser)
+
+TASK [nginx : Update Amazon Linux Repos] ****************************************************************************************************************************************************************
+ok: [10.10.10.219]
+
+TASK [nginx : Install nginx (Amazon Linux 2)] ***********************************************************************************************************************************************************
+changed: [10.10.10.219]
+
+TASK [random : Creating random file in /tmp/random_(number)] ********************************************************************************************************************************************
+changed: [10.10.10.219]
+
+TASK [security : Install selinux packages] **************************************************************************************************************************************************************
+ok: [10.10.10.219]
+
+TASK [security : Install policycoreutils package for semanage policy managment] *************************************************************************************************************************
+changed: [10.10.10.219]
+
+PLAY RECAP **********************************************************************************************************************************************************************************************
+10.10.10.219               : ok=8    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+

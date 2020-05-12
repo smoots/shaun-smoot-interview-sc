@@ -1,0 +1,14 @@
+pipeline {
+  agent {
+    node {
+      label 'terraform-agent'
+    }
+  }
+  stages {
+    stage('Terraform Destroy') {
+      steps {
+        sh 'terraform destroy -auto-approve' 
+      }
+    }
+  }
+}

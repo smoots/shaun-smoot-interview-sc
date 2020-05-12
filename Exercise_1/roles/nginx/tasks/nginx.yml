@@ -1,0 +1,9 @@
+---
+
+- name: Update Amazon Linux Repos
+  yum:
+    name: amazon-linux-extras
+    state: present
+
+- name: Install nginx (Amazon Linux 2)
+  shell: "amazon-linux-extras install nginx1.12 -y"

@@ -1,0 +1,39 @@
+Vault Population Steps
+======================
+
+On each SWARM node running your vault container set thr Vault Address variable
+
+export VAULT_ADDR='http://127.0.0.1:8200'
+
+On the first node run the init command:
+
+vault operator init
+
+This will dump your Keys to unseal and connect to the Web UI (if needed) example below:
+
+Unseal Key 1: p9ySCyRaHXUhQQAw3PgkQhSvoe+mexRlZGILDi2ieLji
+Unseal Key 2: a8IQbNnbUWLx5mK//nkG0NIO4XtYbeqOFnS7R1STJhQg
+Unseal Key 3: 4Q+qgYNYTRqER5NdrzFwyYSmI6ZcQ4qYcvat0YKCGqJB
+Unseal Key 4: AlXy7LO1Nyxxp5GAVYe2MEusk8chXJb/q0rnT5hxOsB6
+Unseal Key 5: XHtoC4husOQCwXNEyT4Du6D9zF6T2UJgEWVRoCC/62kr
+
+Initial Root Token: 213d7dad-c2fd-de83-61bf-bcc9ab43d480
+
+Vault initialized with 5 key shares and a key threshold of 3. Please securely
+distribute the key shares printed above. When the Vault is re-sealed,
+restarted, or stopped, you must supply at least 3 of these keys to unseal it
+before it can start servicing requests.
+
+Vault does not store the generated master key. Without at least 3 key to
+reconstruct the master key, Vault will remain permanently sealed!
+
+It is possible to generate new unseal keys, provided you have a quorum of
+existing unseal keys shares. See "vault operator rekey" for more information.
+
+Next login into vault, using:
+
+vault login p9ySCyRaHXUhQQAw3PgkQhSvoe+mexRlZGILDi2ieLji
+
+Next populate secrets for postgress admin:
+
+vault kv put secret/pg pgpass=PGPASSWD2468!

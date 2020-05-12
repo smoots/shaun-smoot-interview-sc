@@ -1,0 +1,6 @@
+---
+
+- name: Install selinux packages
+  yum:
+    name: libselinux
+    state: present
